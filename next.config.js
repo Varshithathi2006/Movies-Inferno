@@ -4,6 +4,7 @@ const nextConfig = {
   
   // Image optimization for TMDB and Azure Blob Storage
   images: {
+    unoptimized: true, // Required for static export
     domains: [
       'image.tmdb.org',
       'www.themoviedb.org',
@@ -80,7 +81,8 @@ const nextConfig = {
   },
 
   // Output configuration for Azure Static Web Apps
-  output: 'standalone',
+  output: 'export',
+  trailingSlash: true,
   
   // Experimental features
   experimental: {
