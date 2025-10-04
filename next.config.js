@@ -4,12 +4,10 @@ const nextConfig = {
   
   // Image optimization for TMDB and Azure Blob Storage
   images: {
-    unoptimized: true, // Required for static export
     domains: [
       'image.tmdb.org',
       'www.themoviedb.org',
-      // Add your Azure Storage account domain
-      process.env.AZURE_STORAGE_ACCOUNT_NAME ? `${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net` : 'placeholder.blob.core.windows.net'
+      'movieinfernoblob.blob.core.windows.net'
     ],
     formats: ['image/webp', 'image/avif'],
   },
@@ -80,9 +78,8 @@ const nextConfig = {
     return config;
   },
 
-  // Output configuration for Azure Static Web Apps
-  output: 'export',
-  trailingSlash: true,
+  // Output configuration for Azure deployment
+  output: 'standalone',
   
   // Experimental features
   experimental: {
