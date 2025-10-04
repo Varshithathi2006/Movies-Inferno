@@ -8,21 +8,45 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Send, Trophy, Star, Gift, Gamepad2, Target, Zap, Crown, Medal, Award, Brain, ChevronDown } from 'lucide-react'
 
+interface Message {
+  id: string
+  type: 'bot' | 'user'
+  content: string
+  timestamp: Date
+  question?: TriviaQuestion
+}
+
+interface TriviaQuestion {
+  id: number
+  question: string
+  options: string[]
+  correct: number
+  points: number
+  category: string
+}
+
+interface GameStats {
+  questionsAnswered: number
+  correctAnswers: number
+  streak: number
+  bestStreak: number
+}
+
 const GameChatbot = () => {
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<Message[]>([])
   const [inputMessage, setInputMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [userPoints, setUserPoints] = useState(0)
-  const [currentQuestion, setCurrentQuestion] = useState(null)
+  const [currentQuestion, setCurrentQuestion] = useState<TriviaQuestion | null>(null)
   const [showScrollButton, setShowScrollButton] = useState(false)
-  const [gameStats, setGameStats] = useState({
+  const [gameStats, setGameStats] = useState<GameStats>({
     questionsAnswered: 0,
     correctAnswers: 0,
     streak: 0,
     bestStreak: 0
   })
-  const messagesEndRef = useRef(null)
-  const scrollAreaRef = useRef(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   // Movie trivia questions database
   const triviaQuestions = [
@@ -159,7 +183,7 @@ const GameChatbot = () => {
 
   useEffect(() => {
     // Welcome message
-    const welcomeMessage = {
+    const welcomeMessage: Message = {
       id: '1',
       type: 'bot',
       content: "🎮 Welcome to Movie Trivia Challenge! I'm your game host. Answer movie questions correctly to earn points and unlock rewards! Type 'start' to begin your first question, or 'help' for more info.",
@@ -173,7 +197,7 @@ const GameChatbot = () => {
     return availableQuestions[Math.floor(Math.random() * availableQuestions.length)]
   }
 
-  const handleAnswer = (selectedOption, question) => {
+  const handleAnswer = (selectedOption: number, question: TriviaQuestion) => {
     const isCorrect = selectedOption === question.correct
     const pointsEarned = isCorrect ? question.points : 0
     
@@ -228,7 +252,7 @@ const GameChatbot = () => {
 
     responseContent += `\n\nType 'next' for another question or 'stats' to see your progress!`
 
-    const botMessage = {
+    const botMessage: Message = {
       id: Date.now().toString(),
       type: 'bot',
       content: responseContent,
@@ -241,7 +265,7 @@ const GameChatbot = () => {
   const handleSendMessage = async (message = inputMessage) => {
     if (!message.trim()) return
 
-    const userMessage = {
+    const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
       content: message,
@@ -262,7 +286,7 @@ const GameChatbot = () => {
         
         botResponse = `🎯 **${question.category}** - ${question.points} points\n\n${question.question}`
         
-        const botMessage = {
+        const botMessage: Message = {
           id: (Date.now() + 1).toString(),
           type: 'bot',
           content: botResponse,
@@ -324,7 +348,7 @@ const GameChatbot = () => {
       }
 
       if (botResponse) {
-        const botMessage = {
+        const botMessage: Message = {
           id: (Date.now() + 1).toString(),
           type: 'bot',
           content: botResponse,
@@ -337,7 +361,7 @@ const GameChatbot = () => {
     }, 1000)
   }
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
@@ -461,7 +485,7 @@ const GameChatbot = () => {
                                 key={index}
                                 variant="outline"
                                 className="w-full justify-start text-left bg-gradient-to-r from-black/50 to-black/60 hover:from-red-600/30 hover:to-red-800/30 border-red-500/30 hover:border-red-400/50 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg p-4 rounded-xl"
-                                onClick={() => handleAnswer(index, message.question)}
+                                onClick={() => message.question && handleAnswer(index, message.question)}
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-700 rounded-full flex items-center justify-center text-white font-bold text-sm">

@@ -14,7 +14,7 @@ import { tvApi, getImageUrl, type TVShow } from "@/services/api"
 
 export default function TVShowDetailsPage() {
   const params = useParams()
-  const showId = Number.parseInt(params.id as string)
+  const showId = Number.parseInt(params?.id as string)
 
   const [show, setShow] = useState<TVShow | null>(null)
   const [loading, setLoading] = useState(true)

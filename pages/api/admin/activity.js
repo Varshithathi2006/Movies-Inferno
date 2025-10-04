@@ -1,4 +1,4 @@
-import { azureClient } from '../../../lib/azureClient';
+import azureClient from '../../../lib/azureClient';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
 

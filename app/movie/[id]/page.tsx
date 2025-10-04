@@ -16,7 +16,7 @@ import { movieApi, getImageUrl, type Movie, type Credits } from "@/services/api"
 
 export default function MovieDetailsPage() {
   const params = useParams()
-  const movieId = Number.parseInt(params.id as string)
+  const movieId = Number.parseInt(params?.id as string)
 
   const [movie, setMovie] = useState<Movie | null>(null)
   const [credits, setCredits] = useState<Credits | null>(null)

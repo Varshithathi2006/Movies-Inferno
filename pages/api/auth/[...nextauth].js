@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import AzureADB2CProvider from 'next-auth/providers/azure-ad-b2c';
 import { azurePostgreSQLClient } from '../../../azure/config/azure-config.js';
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     AzureADB2CProvider({
       tenantId: process.env.AZURE_AD_B2C_TENANT_NAME,
@@ -128,7 +128,9 @@ export default NextAuth({
   debug: process.env.NODE_ENV === 'development',
 
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);
 
 // Helper function to refresh access token
 async function refreshAccessToken(token) {

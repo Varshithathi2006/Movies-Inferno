@@ -10,24 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tv, Star, Calendar, Play, Info } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { tvApi, getImageUrl } from "@/services/api"
-
-interface TVShow {
-  id: number
-  name: string
-  overview?: string
-  poster_path?: string
-  first_air_date?: string
-  vote_average?: number
-  genre_ids?: number[]
-  adult?: boolean
-  original_language?: string
-  original_name?: string
-  popularity?: number
-  vote_count?: number
-  backdrop_path?: string
-  origin_country?: string[]
-}
+import { tvApi, getImageUrl, TVShow } from "@/services/api"
 
 export default function TVShowsPage() {
   const [heroShow, setHeroShow] = useState<TVShow | null>(null)

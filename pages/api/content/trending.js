@@ -1,4 +1,4 @@
-import { azureClient } from '../../../lib/azureClient';
+import azureClient from '../../../lib/azureClient';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {

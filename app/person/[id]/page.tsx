@@ -23,7 +23,7 @@ interface PersonDetails extends Person {
 
 export default function PersonDetailsPage() {
   const params = useParams()
-  const personId = Number.parseInt(params.id as string)
+  const personId = Number.parseInt(params?.id as string)
 
   const [person, setPerson] = useState<PersonDetails | null>(null)
   const [loading, setLoading] = useState(true)

@@ -17,7 +17,7 @@ type SearchCategory = "all" | "movies" | "tv" | "people"
 
 export default function SearchPage() {
   const searchParams = useSearchParams()
-  const query = searchParams.get("q") || ""
+  const query = searchParams?.get("q") || ""
 
   const [movies, setMovies] = useState<Movie[]>([])
   const [tvShows, setTVShows] = useState<TVShow[]>([])

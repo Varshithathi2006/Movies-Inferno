@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { movieApi, getImageUrl } from "@/services/api"
+import { movieApi, getImageUrl, type Movie } from "@/services/api"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -11,23 +11,6 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { LoadingSpinner } from "@/components/loading-spinner"
 import { Play, Info, Star, Calendar } from "lucide-react"
-
-interface Movie {
-  id: number
-  title: string
-  overview?: string
-  poster_path?: string
-  release_date?: string
-  vote_average?: number
-  genre_ids?: number[]
-  adult?: boolean
-  original_language?: string
-  original_title?: string
-  popularity?: number
-  video?: boolean
-  vote_count?: number
-  backdrop_path?: string
-}
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([])

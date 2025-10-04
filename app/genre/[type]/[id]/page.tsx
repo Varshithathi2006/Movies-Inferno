@@ -37,8 +37,8 @@ type TVShow = {
 
 export default function GenreDetailsPage() {
     const params = useParams();
-    const genreId = params.id;
-    const type = params.type as "movie" | "tv";
+    const genreId = params?.id;
+    const type = params?.type as "movie" | "tv";
     const [content, setContent] = useState<Movie[] | TVShow[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
